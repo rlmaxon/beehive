@@ -1,0 +1,12 @@
+venv/
+__pycache__/
+*.pyc
+logs/
+models/*.pt
+!models/.gitkeep
+train/data/
+train/raw_frames/
+train/runs/
+*.mp4
+*.avi
+.DS_Store

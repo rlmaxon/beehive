@@ -1,0 +1,11 @@
+# Ultralytics dataset config. Point these paths at your labeled export
+# (Roboflow/CVAT export in YOLO format gives you this structure directly).
+path: ./data            # root dir
+train: images/train
+val: images/val
+test: images/test       # optional
+
+names:
+  0: worker
+  1: drone
+  2: queen

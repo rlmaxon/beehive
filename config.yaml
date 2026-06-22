@@ -1,0 +1,30 @@
+# --- Stream ---
+rtsp_url: "rtsp://user:password@192.168.1.50:554/stream1"
+reconnect_delay_seconds: 5      # wait time before retrying a dropped RTSP connection
+
+# --- Model ---
+model_path: "models/yolov8n.pt"  # swap for your fine-tuned bee model once trained
+device: "auto"                   # "auto" | "cuda" | "cpu" -- will resolve to "cpu" automatically if no GPU is present
+confidence_threshold: 0.35
+tracker: "bytetrack.yaml"        # ultralytics built-in tracker config; "botsort.yaml" also available
+vid_stride: 2                    # process every Nth frame; raise this (3-5) on CPU-only boxes if inference can't keep up with the stream's fps
+
+# class_id -> name mapping for YOUR trained model (must match train/dataset.yaml)
+class_names:
+  0: worker
+  1: drone
+  2: queen
+  3: pollen_bearer
+
+# which class ids to include in traffic counts (queen rarely flies but worth
+# keeping -- a queen detected at the entrance is itself a useful swarming
+# signal; pollen_bearer is a worker carrying pollen, counted separately so you
+# can track foraging-for-pollen activity vs. general traffic)
+classes_of_interest: [0, 1, 2, 3]
+
+# --- Counting line ---
+# two points (x, y) in pixel coords of the stream's native resolution, drawn
+# across the entrance funnel. Direction is determined by which side a track's
+# centroid starts on vs. ends on relative to this line.
+line:
+  point_a: [100,
