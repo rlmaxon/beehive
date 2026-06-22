@@ -33,3 +33,32 @@ def main():
     )
     parser.add_argument("--workers", type=int, default=4, help="dataloader worker processes (CPU cores)")
     parser.add_argument("--project", default="train/runs")
+    parser.add_argument("--name", default="bee_detector")
+    args = parser.parse_args()
+
+    model = YOLO(args.base)
+    model.train(
+        data=args.data,
+        epochs=args.epochs,
+        imgsz=args.imgsz,
+        batch=args.batch,
+        device=args.device,
+        cache=args.cache,
+        workers=args.workers,
+        project=args.project,
+        name=args.name,
+        patience=20,        # early stop if val mAP plateaus
+        augment=True,
+    )
+
+    metrics = model.val()
+    print(metrics)
+    print(
+        f"\nBest weights: {args.project}/{args.name}/weights/best.pt\n"
+        "Copy that file to beehive_monitor/models/ and point config.yaml's "
+        "model_path at it."
+    )
+
+
+if __name__ == "__main__":
+    main()

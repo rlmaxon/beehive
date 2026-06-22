@@ -147,4 +147,8 @@ def main():
     args = parser.parse_args()
 
     cfg = load_config(args.config)
-    run(cfg, display=args.display, save_video_path=args
+    run(cfg, display=args.display, save_video_path=args.save_video)
+
+
+if __name__ == "__main__":
+    main()

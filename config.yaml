@@ -27,4 +27,16 @@ classes_of_interest: [0, 1, 2, 3]
 # across the entrance funnel. Direction is determined by which side a track's
 # centroid starts on vs. ends on relative to this line.
 line:
-  point_a: [100,
+  point_a: [100, 360]
+  point_b: [540, 360]
+# which side is "out" of the hive: "a_to_b" or "b_to_a" (figure this out once
+# during calibration and flip if your in/out counts look backwards)
+out_direction: "a_to_b"
+
+# --- Logging ---
+log_path: "logs/traffic_log.csv"
+log_interval_seconds: 60
+
+# --- Display / debug ---
+display: false
+save_video_path: null

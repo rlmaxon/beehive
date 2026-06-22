@@ -158,4 +158,26 @@ def merge(sources: list[Path], out_dir: Path):
                 "path": str(out_dir.resolve()),
                 "train": "images/train",
                 "val": "images/val",
-                "test": "
+                "test": "images/test",
+                "names": {v: k for k, v in CANONICAL.items()},
+            },
+            sort_keys=False,
+        )
+    )
+
+    print(f"\nMerged {totals['images']} images, kept {totals['kept_boxes']} boxes, "
+          f"dropped {totals['dropped_boxes']} boxes (unmapped classes).")
+    print(f"Wrote {data_yaml_out}")
+    print("Train with: python train/train.py --data", data_yaml_out)
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--sources", nargs="+", required=True, type=Path)
+    parser.add_argument("--out", default="train/data", type=Path)
+    args = parser.parse_args()
+    merge(args.sources, args.out)
+
+
+if __name__ == "__main__":
+    main()
